@@ -82,23 +82,28 @@ for c in cities:
 # TODO Get latitude and longitude values from the user
 
 
-lat1 = input("Please enter latitude ")
-lon1 = input("Please enter longitude ")
-lat2 = input("Please enter latitude ")
-lon2 = input("Please enter longitude ")
+latitude1 = input("Please enter latitude ")
+longitude1 = input("Please enter longitude ")
+latitude2 = input("Please enter latitude ")
+longitude2 = input("Please enter longitude ")
 
-point1 = [lat1, lon1]
-point2 = [lat2, lon2]
-print(point1, "point1")
-print(point2, "point2")
-lat_lon_range = [float((min(point1[0], point2[0]))), float(max(point1[1], point2[1]))]
-print(lat_lon_range)
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
+
+  min_latitude = min(float(lat1), float(lat2))
+  max_latitude = max(float(lat1), float(lat2))
+
+  min_longitude = min(float(lon1), float(lon2))
+  max_longitude = max(float(lon1), float(lon2))
+
   # within will hold the cities that fall within the specified region
-  within = [city for city in cities if city.lat >= lat_lon_range[0] and city.lon <= lat_lon_range[1]]
+  within = [city for city in cities if city.lat >= min_latitude and city.lat <= max_latitude and city.lon >= min_longitude and city.lon <= max_longitude]
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
-  print(within)
+
   return within
 
-cityreader_stretch(lat1, lon1, lat2, lon2, cities)
+
+strech_result = cityreader_stretch(latitude1, longitude1, latitude2, longitude2, cities)
+
+for r in strech_result:
+  print(r)
